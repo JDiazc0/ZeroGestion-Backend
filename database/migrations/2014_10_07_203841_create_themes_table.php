@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('themes', function (Blueprint $table) {
             $table->id();
+            $table->string('primary');
+            $table->string('secondary');
+            $table->string('tertiary');
+            $table->string('light_text');
+            $table->string('primary_text');
+            $table->string('secondary_text');
+            $table->string('primary_background');
+            $table->string('secondary_background');
             $table->timestamps();
         });
     }
