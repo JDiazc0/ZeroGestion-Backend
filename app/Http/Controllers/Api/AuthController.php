@@ -57,4 +57,18 @@ class AuthController extends Controller
             ], Response::HTTP_UNAUTHORIZED);
         }
     }
+
+    public function logoutUser()
+    {
+        /** @var \App\Models\User */
+        $user = Auth::user();
+
+        $user->tokens()->delete();
+
+        $cookie = Cookie::forget('auth_token');
+
+        return response([
+            'message' => 'Logout OK'
+        ], Response::HTTP_OK)->withCookie($cookie);
+    }
 }
