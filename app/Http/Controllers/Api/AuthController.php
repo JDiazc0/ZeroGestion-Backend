@@ -31,4 +31,30 @@ class AuthController extends Controller
             'user' => new UserResource($user)
         ], Response::HTTP_CREATED);
     }
+
+    public function loginUser(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            /** @var \App\Model\User */
+            $user = Auth::user();
+            $token = $user->createToken('auth_token')->plainTextToken;
+
+            $cookie = cookie('auth_token', $token, 60 * 24, '/', null, true, true, false, 'Strict');
+
+            return response()->json([
+                'auth_token' => $token
+            ], Response::HTTP_OK)->withCookie($cookie);
+        } else {
+            return response()->json([
+                'message' => 'Invalid Credentials'
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+    }
 }
