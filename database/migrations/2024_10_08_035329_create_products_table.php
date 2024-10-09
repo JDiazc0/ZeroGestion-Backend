@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->decimal('selling_price', 10, 2);
-            $table->decimal('production_cost', 10, 2);
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
