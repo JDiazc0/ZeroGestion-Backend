@@ -71,4 +71,46 @@ class AuthController extends Controller
             'message' => 'Logout OK'
         ], Response::HTTP_OK)->withCookie($cookie);
     }
+
+    public function forgotPassword(Request $request)
+    {
+        $request->validate(['email' => 'required|email']);
+
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+
+        return $status === Password::RESET_LINK_SENT
+            ? response()->json([
+                'message' => 'Password reset link sent successfully.'
+            ], Response::HTTP_OK)
+            : response()->json([
+                'message' => 'Password reset link could not be sent.'
+            ], Response::HTTP_BAD_REQUEST);
+    }
+
+    public function resetPassword(ResetPasswordRequest $request)
+    {
+
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function (User $user, string $password) {
+                $user->forceFill([
+                    'password' => $password
+                ])->setRememberToken(Str::random(60));
+
+                $user->save();
+
+                event(new PasswordReset($user));
+            }
+        );
+
+        return $status === Password::PASSWORD_RESET
+            ? response()->json([
+                'message' => 'Password successfully reset.'
+            ], Response::HTTP_OK)
+            : response()->json([
+                'message' => 'Password could not be reset.'
+            ], Response::HTTP_BAD_REQUEST);
+    }
 }
