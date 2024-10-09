@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('email')->unique();
             $table->string('password');
-            $table->foreignId('theme_id')->constrained('themes');
+            $table->foreignId('theme_id')->constrained('themes')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });
