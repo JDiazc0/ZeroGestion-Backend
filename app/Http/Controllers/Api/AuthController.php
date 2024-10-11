@@ -11,13 +11,18 @@ use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
+    /**
+     * Register a new user in the system
+     *
+     * @param RegisterUserRequest $request
+     * @return JsonResponse
+     */
     public function registerUser(RegisterUserRequest $request)
     {
         $user = User::create([
@@ -32,6 +37,12 @@ class AuthController extends Controller
         ], Response::HTTP_CREATED);
     }
 
+    /**
+     * Login to user and create an authentication token
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function loginUser(Request $request)
     {
         $request->validate([
@@ -58,6 +69,11 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * Logs the user out and removes the authentication token
+     *
+     * @return JsonResponse
+     */
     public function logoutUser()
     {
         /** @var \App\Models\User */
@@ -72,6 +88,12 @@ class AuthController extends Controller
         ], Response::HTTP_OK)->withCookie($cookie);
     }
 
+    /**
+     * Sends a link to the user to recover his password
+     *
+     * @param Request $request
+     * @return JsonReponse
+     */
     public function forgotPassword(Request $request)
     {
         $request->validate(['email' => 'required|email']);
@@ -89,6 +111,12 @@ class AuthController extends Controller
             ], Response::HTTP_BAD_REQUEST);
     }
 
+    /**
+     * Sets new password for the user
+     *
+     * @param ResetPasswordRequest $request
+     * @return JsonResponse
+     */
     public function resetPassword(ResetPasswordRequest $request)
     {
 

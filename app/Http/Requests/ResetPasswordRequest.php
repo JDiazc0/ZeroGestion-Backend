@@ -4,6 +4,11 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Class ResetPasswordRequest
+ * 
+ * Handles data validation for new password.
+ */
 class ResetPasswordRequest extends FormRequest
 {
     /**

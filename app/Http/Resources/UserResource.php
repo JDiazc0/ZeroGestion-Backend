@@ -5,6 +5,11 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * Class UserResource
+ * 
+ * Transform user model into a Json representation.
+ */
 class UserResource extends JsonResource
 {
     /**
