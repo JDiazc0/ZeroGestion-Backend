@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->decimal('cost', 10, 2);
-            $table->decimal('min_quantiy', 10, 2);
+            $table->decimal('min_quantity', 10, 2);
             $table->enum('measure', MeasureType::values())->default(MeasureType::default());
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
