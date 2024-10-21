@@ -28,7 +28,15 @@ class RawMaterialController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index() {}
+    public function index()
+    {
+        $user_id = auth()->id();
+        $rawMaterials = $this->rawMaterialService->getAll($user_id);
+
+        return response()->json([
+            'Raw Materials' => $rawMaterials
+        ], Response::HTTP_OK);
+    }
 
     /**
      * Store a newly created resource in storage.
