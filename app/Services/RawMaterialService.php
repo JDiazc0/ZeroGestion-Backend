@@ -9,7 +9,18 @@ use Illuminate\Support\Facades\DB;
 
 class RawMaterialService
 {
-
+    /**
+     * Get all raw materials
+     *
+     * @param integer $user_id
+     * @return Collection
+     */
+    public function getAll(int $user_id): Collection
+    {
+        return RawMaterial::with('inventory')
+            ->where('user_id', $user_id)
+            ->get();
+    }
 
     /**
      * Create new raw material
