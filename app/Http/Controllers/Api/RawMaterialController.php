@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRawMaterialRequest;
+use App\Http\Resources\RawMaterialColletion;
 use App\Http\Resources\RawMaterialResource;
 use App\Services\RawMaterialService;
 use Illuminate\Http\Request;
@@ -34,7 +35,8 @@ class RawMaterialController extends Controller
         $rawMaterials = $this->rawMaterialService->getAll($user_id);
 
         return response()->json([
-            'Raw Materials' => $rawMaterials
+            'message' => 'Raw materials retrieved successfully',
+            'data' => new RawMaterialColletion($rawMaterials)
         ], Response::HTTP_OK);
     }
 
