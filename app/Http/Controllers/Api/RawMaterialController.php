@@ -60,9 +60,14 @@ class RawMaterialController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(int $rawMaterialId)
     {
-        //
+        $rawMaterial = $this->rawMaterialService->find($rawMaterialId);
+
+        return response()->json([
+            'message' => 'Raw materials retrieved successfully',
+            'data' => new RawMaterialResource($rawMaterial)
+        ], Response::HTTP_OK);
     }
 
     /**
