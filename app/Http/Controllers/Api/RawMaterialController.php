@@ -65,7 +65,7 @@ class RawMaterialController extends Controller
         $rawMaterial = $this->rawMaterialService->find($rawMaterialId);
 
         return response()->json([
-            'message' => 'Raw materials retrieved successfully',
+            'message' => 'Raw material retrieved successfully',
             'data' => new RawMaterialResource($rawMaterial)
         ], Response::HTTP_OK);
     }
