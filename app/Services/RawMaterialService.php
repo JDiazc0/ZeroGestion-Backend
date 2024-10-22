@@ -15,10 +15,10 @@ class RawMaterialService
      * @param integer $user_id
      * @return Collection
      */
-    public function getAll(int $user_id): Collection
+    public function getAll(int $userId): Collection
     {
         return RawMaterial::with('inventory')
-            ->where('user_id', $user_id)
+            ->where('user_id', $userId)
             ->get();
     }
 
@@ -26,20 +26,31 @@ class RawMaterialService
      * Create new raw material
      *
      * @param array $data
-     * @param integer $initalStock
+     * @param integer $initialStock
      * @return RawMaterial
      */
-    public function create(array $data, float $initalStock = 0): RawMaterial
+    public function create(array $data, float $initialStock = 0): RawMaterial
     {
-        return DB::transaction(function () use ($data, $initalStock) {
+        return DB::transaction(function () use ($data, $initialStock) {
             $rawMaterial = RawMaterial::create($data);
 
             $rawMaterial->inventory()->create([
-                'quantity' => $initalStock,
+                'quantity' => $initialStock,
                 'user_id' => $data['user_id']
             ]);
 
             return $rawMaterial;
         });
+    }
+
+    /**
+     * Find raw material by id
+     *
+     * @param integer $rawMaterialId
+     * @return RawMaterial
+     */
+    public function find(int $rawMaterialId): RawMaterial
+    {
+        return RawMaterial::with('inventory')->findOrFail($rawMaterialId);
     }
 }
