@@ -17,5 +17,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::group(['prefix' => 'raw-material'], function () {
         Route::post('create', [RawMaterialController::class, 'store']);
         Route::get('index', [RawMaterialController::class, 'index']);
+        Route::get('show/{rawMaterialId}', [RawMaterialController::class, 'show']);
     });
 });
