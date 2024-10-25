@@ -61,9 +61,9 @@ class RawMaterialController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(int $rawMaterialId)
+    public function show(RawMaterial $rawMaterial)
     {
-        $rawMaterial = $this->rawMaterialService->find($rawMaterialId);
+        $this->authorize('view', $rawMaterial);
 
         return response()->json([
             'message' => 'Raw material retrieved successfully',
@@ -76,6 +76,8 @@ class RawMaterialController extends Controller
      */
     public function update(UpdateRawMaterialRequest $request, RawMaterial $rawMaterial)
     {
+        $this->authorize('update', $rawMaterial);
+
         $data = $request->validated();
         $rawMaterialUpdated = $this->rawMaterialService->update($rawMaterial->id, $data);
 
