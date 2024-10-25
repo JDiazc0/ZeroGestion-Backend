@@ -90,8 +90,15 @@ class RawMaterialController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(RawMaterial $rawMaterial)
     {
-        //
+        $this->authorize('delete', $rawMaterial);
+
+        $rawMaterialDeleted = $this->rawMaterialService->delete($rawMaterial->id);
+
+        return response()->json([
+            'message' => 'Raw material deleted succesfully',
+            'data' => new RawMaterialResource($rawMaterial)
+        ], Response::HTTP_OK);
     }
 }
