@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\RawMaterialController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,5 +21,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('show/{rawMaterial}', [RawMaterialController::class, 'show']);
         Route::put('update/{rawMaterial}', [RawMaterialController::class, 'update']);
         Route::delete('delete/{rawMaterial}', [RawMaterialController::class, 'destroy']);
+    });
+
+    // Protected products routes
+    Route::group(['prefix' => 'product'], function () {
+        Route::post('create', [ProductController::class, 'store']);
     });
 });
