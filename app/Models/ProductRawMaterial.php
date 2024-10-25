@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class ProductRawMaterial extends Model
+class ProductRawMaterial extends Pivot
 {
     use HasFactory;
+
+    protected $table = 'product_raw_materials';
 
     protected $fillable = [
         'product_id',
