@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRawMaterialRequest;
+use App\Http\Requests\UpdateRawMaterialRequest;
 use App\Http\Resources\RawMaterialColletion;
 use App\Http\Resources\RawMaterialResource;
+use App\Models\RawMaterial;
 use App\Services\RawMaterialService;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class RawMaterialController extends Controller
@@ -73,9 +74,15 @@ class RawMaterialController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRawMaterialRequest $request, RawMaterial $rawMaterial)
     {
-        //
+        $data = $request->validated();
+        $rawMaterialUpdated = $this->rawMaterialService->update($rawMaterial->id, $data);
+
+        return response()->json([
+            'message' => 'Raw material updated succesfully',
+            'data' => new RawMaterialResource($rawMaterialUpdated)
+        ], Response::HTTP_OK);
     }
 
     /**
