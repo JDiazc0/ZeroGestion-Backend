@@ -4,7 +4,9 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 
+use App\Models\Product;
 use App\Models\RawMaterial;
+use App\Policies\ProductPolicy;
 use App\Policies\RawMaterialPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -17,6 +19,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         RawMaterial::class => RawMaterialPolicy::class,
+        Product::class => ProductPolicy::class,
     ];
 
     /**
