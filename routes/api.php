@@ -19,5 +19,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('index', [RawMaterialController::class, 'index']);
         Route::get('show/{rawMaterial}', [RawMaterialController::class, 'show']);
         Route::put('update/{rawMaterial}', [RawMaterialController::class, 'update']);
+        Route::delete('delete/{rawMaterial}', [RawMaterialController::class, 'destroy']);
     });
 });
