@@ -53,4 +53,18 @@ class RawMaterialService
     {
         return RawMaterial::with('inventory')->findOrFail($rawMaterialId);
     }
+
+    /**
+     * Updates existing raw material
+     *
+     * @param integer $rawMaterialId
+     * @param array $data
+     * @return RawMaterial
+     */
+    public function update(int $rawMaterialId, array $data): RawMaterial
+    {
+        $rawMaterial = $this->find($rawMaterialId);
+        $rawMaterial->update($data);
+        return $rawMaterial;
+    }
 }
