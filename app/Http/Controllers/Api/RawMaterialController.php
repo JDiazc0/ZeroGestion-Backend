@@ -94,7 +94,7 @@ class RawMaterialController extends Controller
     {
         $this->authorize('delete', $rawMaterial);
 
-        $rawMaterialDeleted = $this->rawMaterialService->delete($rawMaterial->id);
+        $this->rawMaterialService->delete($rawMaterial->id);
 
         return response()->json([
             'message' => 'Raw material deleted succesfully',
