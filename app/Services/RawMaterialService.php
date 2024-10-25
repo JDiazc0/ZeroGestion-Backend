@@ -67,4 +67,16 @@ class RawMaterialService
         $rawMaterial->update($data);
         return $rawMaterial;
     }
+
+    /**
+     * Delete existing raw material
+     *
+     * @param integer $rawMaterialId
+     * @return void
+     */
+    public function delete(int $rawMaterialId): void
+    {
+        $rawMaterial = $this->find($rawMaterialId);
+        $rawMaterial->delete();
+    }
 }
