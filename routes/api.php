@@ -27,5 +27,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::group(['prefix' => 'product'], function () {
         Route::post('create', [ProductController::class, 'store']);
         Route::get('index', [ProductController::class, 'index']);
+        Route::get('show/{productId}', [ProductController::class, 'show']);
     });
 });
