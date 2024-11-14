@@ -17,6 +17,7 @@ class ProductCollection extends ResourceCollection
         return [
             'products' => $this->collection->map(function ($product) {
                 return [
+                    'id' => $product->id,
                     'name' => $product->name,
                     'selling_price' => $product->selling_price,
                     'inventory' => [
