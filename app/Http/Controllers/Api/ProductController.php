@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
+use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
@@ -23,7 +24,13 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $user_id = auth()->id();
+        $products = $this->productService->getAll($user_id);
+
+        return response()->json([
+            'message' => 'Product retrieved successfully',
+            'data' => new ProductCollection($products)
+        ], Response::HTTP_OK);
     }
 
     /**
