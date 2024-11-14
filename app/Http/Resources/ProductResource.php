@@ -22,6 +22,15 @@ class ProductResource extends JsonResource
                     'id' => $this->inventory->id,
                     'quantity' => $this->inventory->quantity,
                 ];
+            }),
+            'raw_materials' => $this->when($this->relationLoaded('rawMaterials'), function () {
+                return $this->rawMaterials->map(function ($material) {
+                    return [
+                        'id' => $material->id,
+                        'name' => $material->name,
+                        'quantity' => $material->pivot->quantity,
+                    ];
+                });
             })
         ];
     }
