@@ -26,5 +26,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Protected products routes
     Route::group(['prefix' => 'product'], function () {
         Route::post('create', [ProductController::class, 'store']);
+        Route::get('index', [ProductController::class, 'index']);
     });
 });
