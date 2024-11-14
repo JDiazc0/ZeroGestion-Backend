@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
+use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,9 +62,16 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(int $productId)
     {
-        //
+        $product = $this->productService->find($productId);
+
+        $this->authorize('view', $product);
+
+        return response()->json([
+            'message' => 'Product retrieved successfully',
+            'data' => new ProductResource($product)
+        ], Response::HTTP_OK);
     }
 
     /**
