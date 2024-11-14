@@ -49,4 +49,15 @@ class ProductService
             return $product;
         });
     }
+
+    /**
+     * Find product by Id
+     *
+     * @param integer $productId
+     * @return Product
+     */
+    public function find(int $productId): Product
+    {
+        return Product::with(['inventory', 'rawMaterials'])->findOrFail($productId);
+    }
 }
