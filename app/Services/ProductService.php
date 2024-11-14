@@ -3,10 +3,24 @@
 namespace App\Services;
 
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
 class ProductService
 {
+    /**
+     * Get all products
+     *
+     * @param integer $userId
+     * @return Collection
+     */
+    public function getAll(int $userId): Collection
+    {
+        return Product::with(['inventory', 'rawMaterials'])
+            ->where('user_id', $userId)
+            ->get();
+    }
+
     /**
      * Create new product
      *
