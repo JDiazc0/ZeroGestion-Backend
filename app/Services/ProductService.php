@@ -60,4 +60,33 @@ class ProductService
     {
         return Product::with(['inventory', 'rawMaterials'])->findOrFail($productId);
     }
+
+    /**
+     * Updates existing product
+     *
+     * @param integer $productId
+     * @param array $data
+     * @return Product
+     */
+    public function update(int $productId, array $data): Product
+    {
+        $product = $this->find($productId);
+        $product->update($data);
+
+        if (isset($data['raw_materials'])) {
+            $rawMaterialsData = collect($data['raw_materials'])->mapWithKeys(function ($item) {
+                return [
+                    $item['raw_material_id'] => [
+                        'quantity' => $item['quantity'],
+                    ],
+                ];
+            })->toArray();
+
+            $product->rawMaterials()->sync($rawMaterialsData);
+        }
+
+        $product->load('rawMaterials');
+
+        return $product;
+    }
 }
