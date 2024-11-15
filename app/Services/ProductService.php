@@ -89,4 +89,17 @@ class ProductService
 
         return $product;
     }
+
+
+    /**
+     * Delete existing product
+     *
+     * @param integer $productId
+     * @return void
+     */
+    public function delete(int $productId): void
+    {
+        $product = $this->find($productId);
+        $product->delete();
+    }
 }

@@ -94,8 +94,15 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Product $product)
     {
-        //
+        $this->authorize('delete', $product);
+
+        $this->productService->delete($product->id);
+
+        return response()->json([
+            'message' => 'Product deleted succesfully',
+            'data' => new ProductResource($product)
+        ], Response::HTTP_OK);
     }
 }
