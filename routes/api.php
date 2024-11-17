@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\RawMaterialController;
 use Illuminate\Http\Request;
@@ -30,5 +31,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('show/{productId}', [ProductController::class, 'show']);
         Route::put('update/{product}', [ProductController::class, 'update']);
         Route::delete('delete/{product}', [ProductController::class, 'destroy']);
+    });
+
+    // Protected client routes
+    Route::group(['prefix' => 'client'], function () {
+        Route::post('create', [ClientController::class, 'store']);
     });
 });
