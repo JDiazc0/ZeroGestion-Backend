@@ -4,7 +4,6 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\RawMaterialController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 // Public routes
@@ -37,5 +36,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::group(['prefix' => 'client'], function () {
         Route::post('create', [ClientController::class, 'store']);
         Route::get('index', [ClientController::class, 'index']);
+        Route::get('show/{clientId}', [ClientController::class, 'show']);
     });
 });

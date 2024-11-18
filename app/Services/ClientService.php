@@ -45,4 +45,15 @@ class ClientService
 
         return $client->load('phones');
     }
+
+    /**
+     * Find client by Id
+     *
+     * @param integer $clientId
+     * @return Client
+     */
+    public function find(int $clientId): Client
+    {
+        return Client::with('phones')->findOrFail($clientId);
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreClientRequest;
+use App\Http\Resources\ClientCollecton;
 use App\Http\Resources\ClientResource;
 use App\Services\ClientService;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class ClientController extends Controller
 
         return response()->json([
             'message' => 'Product retrieved successfully',
-            'data' => ($clients)
+            'data' => new ClientCollecton($clients)
         ], Response::HTTP_OK);
     }
 
@@ -50,9 +51,16 @@ class ClientController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(int $clientId)
     {
-        //
+        $client = $this->clientService->find($clientId);
+
+        $this->authorize('view', $client);
+
+        return response()->json([
+            'message' => 'Client retrieved successfully',
+            'data' => new ClientResource($client)
+        ], Response::HTTP_OK);
     }
 
     /**
