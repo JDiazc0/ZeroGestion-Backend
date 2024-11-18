@@ -4,9 +4,23 @@ namespace App\Services;
 
 use App\Models\Client;
 use App\Models\ClientPhone;
+use Illuminate\Database\Eloquent\Collection;
 
 class ClientService
 {
+    /**
+     * Get all clients
+     *
+     * @param integer $userId
+     * @return Collection
+     */
+    public function getAll(int $userId): Collection
+    {
+        return Client::with('phones')
+            ->where('user_id', $userId)
+            ->get();
+    }
+
     /**
      * Create new client and add phone numbers
      *

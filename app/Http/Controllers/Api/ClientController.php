@@ -23,7 +23,13 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
+        $user_id = auth()->id();
+        $clients = $this->clientService->getAll($user_id);
+
+        return response()->json([
+            'message' => 'Product retrieved successfully',
+            'data' => ($clients)
+        ], Response::HTTP_OK);
     }
 
     /**

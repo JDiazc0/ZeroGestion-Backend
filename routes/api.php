@@ -36,5 +36,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Protected client routes
     Route::group(['prefix' => 'client'], function () {
         Route::post('create', [ClientController::class, 'store']);
+        Route::get('index', [ClientController::class, 'index']);
     });
 });
