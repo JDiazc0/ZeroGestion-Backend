@@ -16,26 +16,27 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // Protected raw material routes
     Route::group(['prefix' => 'raw-material'], function () {
-        Route::post('create', [RawMaterialController::class, 'store']);
-        Route::get('index', [RawMaterialController::class, 'index']);
-        Route::get('show/{rawMaterial}', [RawMaterialController::class, 'show']);
-        Route::put('update/{rawMaterial}', [RawMaterialController::class, 'update']);
-        Route::delete('delete/{rawMaterial}', [RawMaterialController::class, 'destroy']);
+        Route::post('', [RawMaterialController::class, 'store']);
+        Route::get('', [RawMaterialController::class, 'index']);
+        Route::get('{rawMaterial}', [RawMaterialController::class, 'show']);
+        Route::put('{rawMaterial}', [RawMaterialController::class, 'update']);
+        Route::delete('{rawMaterial}', [RawMaterialController::class, 'destroy']);
     });
 
     // Protected products routes
     Route::group(['prefix' => 'product'], function () {
-        Route::post('create', [ProductController::class, 'store']);
-        Route::get('index', [ProductController::class, 'index']);
-        Route::get('show/{productId}', [ProductController::class, 'show']);
-        Route::put('update/{product}', [ProductController::class, 'update']);
-        Route::delete('delete/{product}', [ProductController::class, 'destroy']);
+        Route::post('', [ProductController::class, 'store']);
+        Route::get('', [ProductController::class, 'index']);
+        Route::get('{productId}', [ProductController::class, 'show']);
+        Route::put('{product}', [ProductController::class, 'update']);
+        Route::delete('{product}', [ProductController::class, 'destroy']);
     });
 
     // Protected client routes
     Route::group(['prefix' => 'client'], function () {
-        Route::post('create', [ClientController::class, 'store']);
-        Route::get('index', [ClientController::class, 'index']);
-        Route::get('show/{clientId}', [ClientController::class, 'show']);
+        Route::post('', [ClientController::class, 'store']);
+        Route::get('', [ClientController::class, 'index']);
+        Route::get('{clientId}', [ClientController::class, 'show']);
+        Route::put('{client}', [ClientController::class, 'update']);
     });
 });
