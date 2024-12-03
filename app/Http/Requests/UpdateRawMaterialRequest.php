@@ -23,10 +23,10 @@ class UpdateRawMaterialRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'cost' => 'required|numeric|min:0',
-            'min_quantity' => "required|numeric|min:0",
-            'measure' => "required|string|in:" . implode(",", MeasureType::values()),
+            'name' => 'sometimes|required|string|max:255',
+            'cost' => 'sometimes|required|numeric|min:0',
+            'min_quantity' => "sometimes|required|numeric|min:0",
+            'measure' => "sometimes|required|string|in:" . implode(",", MeasureType::values()),
         ];
     }
 
