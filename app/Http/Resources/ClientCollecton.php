@@ -22,6 +22,7 @@ class ClientCollecton extends ResourceCollection
                     'address' => $client->address,
                     'phones' => $client->phones ? $client->phones->map(function ($phone) {
                         return [
+                            'phone_id' => $phone->id,
                             'phone_number' => $phone->phone_number
                         ];
                     }) : []

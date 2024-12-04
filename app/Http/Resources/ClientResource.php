@@ -21,7 +21,7 @@ class ClientResource extends JsonResource
             'phones' => $this->when($this->relationLoaded('phones'), function () {
                 return $this->phones->map(function ($phones) {
                     return [
-                        'id' => $phones->id,
+                        'phone_id' => $phones->id,
                         'phone_number' => $phones->phone_number,
                     ];
                 });
