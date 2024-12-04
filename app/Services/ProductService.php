@@ -73,14 +73,13 @@ class ProductService
         $product = $this->find($productId);
         $product->update($data);
 
-        if (isset($data['raw_materials'])) {
-            $rawMaterialsData = collect($data['raw_materials'])->mapWithKeys(function ($item) {
-                return [
-                    $item['raw_material_id'] => [
-                        'quantity' => $item['quantity'],
-                    ],
+        if (array_key_exists('raw_materials', $data)) {
+            $rawMaterialsData = [];
+            foreach ($data['raw_materials'] as $rawMaterial) {
+                $rawMaterialsData[$rawMaterial['raw_material_id']] = [
+                    'quantity' => $rawMaterial['quantity']
                 ];
-            })->toArray();
+            }
 
             $product->rawMaterials()->sync($rawMaterialsData);
         }
