@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreClientRequest;
+use App\Http\Requests\UpdateClientRequest;
 use App\Http\Resources\ClientCollecton;
 use App\Http\Resources\ClientResource;
+use App\Models\Client;
 use App\Services\ClientService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -66,9 +68,17 @@ class ClientController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateClientRequest $request, Client $client)
     {
-        //
+        $this->authorize('update', $client);
+
+        $data = $request->validated();
+        $clientUpdated = $this->clientService->update($client->id, $data);
+
+        return response()->json([
+            'message' => 'Client updated succesfully',
+            'data' => new ClientResource($clientUpdated)
+        ], Response::HTTP_OK);
     }
 
     /**

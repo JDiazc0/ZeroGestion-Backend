@@ -56,4 +56,41 @@ class ClientService
     {
         return Client::with('phones')->findOrFail($clientId);
     }
+
+    /**
+     * Updates existing client
+     *
+     * @param integer $clientId
+     * @param array $data
+     * @return Client
+     */
+    public function update(int $clientId, array $data): Client
+    {
+        $client = $this->find($clientId);
+        $client->update($data);
+
+        if (isset($data['phones']) && is_array($data['phones'])) {
+            $phonesToKeep = [];
+
+            foreach ($data['phones'] as $phone) {
+                if (isset($phone['phone_id'])) {
+                    $existingPhone = $client->phones()->find($phone['phone_id']);
+
+                    if ($existingPhone) {
+                        $existingPhone->update(['phone_number' => $phone['phone_number']]);
+                        $phonesToKeep[] = $phone['phone_id'];
+                    }
+                } else {
+                    $newPhone = $client->phones()->create(['phone_number' => $phone['phone_number']]);
+                    $phonesToKeep[] = $newPhone->id;
+                }
+            }
+
+            $client->phones()->whereNotIn('id', $phonesToKeep)->delete();
+        }
+
+        $client->load('phones');
+
+        return $client;
+    }
 }
