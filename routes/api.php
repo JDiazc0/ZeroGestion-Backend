@@ -38,5 +38,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('', [ClientController::class, 'index']);
         Route::get('{clientId}', [ClientController::class, 'show']);
         Route::put('{client}', [ClientController::class, 'update']);
+        Route::delete('{client}', [ClientController::class, 'destroy']);
     });
 });

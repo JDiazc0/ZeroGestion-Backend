@@ -93,4 +93,16 @@ class ClientService
 
         return $client;
     }
+
+    /**
+     *  Delete existing client
+     * 
+     *  @param integer $clientId
+     *  @return void
+     */
+    public function delete(int $clientId): void
+    {
+        $client = $this->find($clientId);
+        $client->delete();
+    }
 }

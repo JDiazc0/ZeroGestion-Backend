@@ -84,8 +84,10 @@ class ClientController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Client $client)
     {
-        //
+        $this->authorize('delete', $client);
+
+        $this->clientService->delete($client->id);
     }
 }
