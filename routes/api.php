@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ClientController;
+use App\Http\Controllers\Api\InventoryController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\RawMaterialController;
 use Illuminate\Support\Facades\Route;
@@ -39,5 +40,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('{clientId}', [ClientController::class, 'show']);
         Route::put('{client}', [ClientController::class, 'update']);
         Route::delete('{client}', [ClientController::class, 'destroy']);
+    });
+
+    // Protected inventory routes
+    Route::group(['prefix' => 'inventory'], function () {
+        Route::put('product/{productInventory}', [InventoryController::class, 'updateProductInventory']);
+        Route::put('raw-material/{rawMaterialInventory}', [InventoryController::class, 'updateRawMaterialInventory']);
     });
 });
