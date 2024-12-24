@@ -9,7 +9,6 @@ use App\Http\Resources\ClientCollecton;
 use App\Http\Resources\ClientResource;
 use App\Models\Client;
 use App\Services\ClientService;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ClientController extends Controller
@@ -30,7 +29,7 @@ class ClientController extends Controller
         $clients = $this->clientService->getAll($user_id);
 
         return response()->json([
-            'message' => 'Product retrieved successfully',
+            'message' => 'Clients retrieved successfully',
             'data' => new ClientCollecton($clients)
         ], Response::HTTP_OK);
     }
