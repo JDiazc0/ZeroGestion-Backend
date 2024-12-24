@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateInventoryProductRequest;
 use App\Http\Requests\UpdateInventoryRawMaterialRequest;
+use App\Http\Resources\InventoryCollection;
 use App\Http\Resources\InventoryProductResource;
 use App\Http\Resources\InventoryRawMaterialResource;
 use App\Models\ProductInventory;
 use App\Models\RawMaterialInventory;
 use App\Services\InventoryService;
+use Symfony\Component\HttpFoundation\Response;
 
 class InventoryController extends Controller
 {
@@ -23,7 +25,15 @@ class InventoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index() {}
+    public function index()
+    {
+        $data = $this->inventoryService->getAll();
+
+        return response()->json([
+            'message' => 'Inventory retrieved successfully',
+            'data' => new InventoryCollection($data)
+        ], Response::HTTP_OK);
+    }
 
     /**
      * Update the specified product in storage.
@@ -40,7 +50,7 @@ class InventoryController extends Controller
         return response()->json([
             'message' => 'Product inventory created successfully',
             'data' => new InventoryProductResource($data)
-        ]);
+        ], Response::HTTP_CREATED);
     }
 
     /**
@@ -51,14 +61,14 @@ class InventoryController extends Controller
         $this->authorize('update', $rawMaterialInventory);
 
         $data = $request->validated();
-        $data['id']= $rawMaterialInventory->id;
+        $data['id'] = $rawMaterialInventory->id;
 
         $data = $this->inventoryService->updateRawMaterialInventory($data);
 
         return response()->json([
             'message' => 'Product inventory created successfully',
             'data' => new InventoryRawMaterialResource($data)
-        ]);
+        ], Response::HTTP_CREATED);
     }
 
     /**

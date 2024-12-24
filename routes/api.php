@@ -46,5 +46,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::group(['prefix' => 'inventory'], function () {
         Route::put('product/{productInventory}', [InventoryController::class, 'updateProductInventory']);
         Route::put('raw-material/{rawMaterialInventory}', [InventoryController::class, 'updateRawMaterialInventory']);
+        Route::get('', [InventoryController::class, 'index']);
     });
 });
