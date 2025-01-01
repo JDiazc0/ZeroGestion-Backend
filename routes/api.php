@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\InventoryController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\RawMaterialController;
 use Illuminate\Support\Facades\Route;
@@ -47,5 +48,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::put('product/{productInventory}', [InventoryController::class, 'updateProductInventory']);
         Route::put('raw-material/{rawMaterialInventory}', [InventoryController::class, 'updateRawMaterialInventory']);
         Route::get('', [InventoryController::class, 'index']);
+    });
+
+    // Protected order routes
+    Route::group(['prefix' => 'order'], function () {
+        Route::post('', [OrderController::class, 'store']);
     });
 });
