@@ -53,5 +53,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Protected order routes
     Route::group(['prefix' => 'order'], function () {
         Route::post('', [OrderController::class, 'store']);
+        Route::get('', [OrderController::class, 'index']);
     });
 });

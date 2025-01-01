@@ -22,7 +22,13 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $user_id = auth()->id();
+        $orders = $this->orderService->getAll($user_id);
+
+        return response()->json([
+            'message' => 'Orders retrieved successfully',
+            'data' => $orders
+        ], Response::HTTP_OK);
     }
 
     /**

@@ -4,10 +4,21 @@ namespace App\Services;
 
 use App\Models\Order;
 use App\Models\OrderProduct;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
 class OrderService
 {
+    /**
+     *  Get all orders
+     * 
+     *  @param integer $userId
+     *  @return Collection
+     */
+    public function getAll(int $userId): Collection
+    {
+        return Order::where('user_id', $userId)->get();
+    }
 
     /**
      * Create new order and add products
