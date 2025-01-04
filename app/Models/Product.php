@@ -51,4 +51,9 @@ class Product extends Model
     {
         return $this->hasOne(ProductInventory::class);
     }
+
+    public function temporaryReservations()
+    {
+        return $this->hasMany(TemporaryInventoryReservation::class);
+    }
 }

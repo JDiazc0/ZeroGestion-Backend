@@ -35,4 +35,9 @@ class Order extends Model
     {
         return $this->hasOne(Transaction::class);
     }
+
+    public function temporaryReservations()
+    {
+        return $this->hasMany(TemporaryInventoryReservation::class);
+    }
 }

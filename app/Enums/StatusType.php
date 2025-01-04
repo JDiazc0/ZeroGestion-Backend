@@ -7,6 +7,7 @@ enum StatusType: string
     case PENDING = 'pending';
     case DELIVERED = 'delivered';
     case CANCELLED = 'cancelled';
+    case DRAFT = 'draft';
 
     public static function values(): array
     {

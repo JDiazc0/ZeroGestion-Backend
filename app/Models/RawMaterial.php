@@ -39,4 +39,9 @@ class RawMaterial extends Model
     {
         return $this->hasOne(RawMaterialInventory::class);
     }
+
+    public function temporaryReservations()
+    {
+        return $this->hasMany(TemporaryInventoryReservation::class);
+    }
 }
