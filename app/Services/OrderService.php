@@ -49,4 +49,12 @@ class OrderService
             return $order->load('orderProducts');
         });
     }
+
+    public function checkInventory(array $products)
+    {
+        $inventoryService = new InventoryService();
+        $response = $inventoryService->checkInventory($products['products']);
+
+        return $response;
+    }
 }
